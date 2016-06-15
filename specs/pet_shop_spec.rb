@@ -19,26 +19,38 @@ class TestPetShop < Minitest::Test
     @pet_shop = PetShop.new( pets )
   end
 
-  def test_initial_state
-    assert_equal(4, @pet_shop.number_of_pets())
+  def test_pet_shop_stock
+    assert_equal(4, @pet_shop.number_of_pets_in_shop())
   end
 
   def test_can_get_pet
-    purchased_pet = @pet_shop.get_pet()
-    assert_equal("Grass", purchased_pet.type())
+    purchased_pet = @pet_shop.get_pet_by_breed("Bulbasaur")
+    assert_equal(3, @pet_shop.number_of_pets_in_shop())
   end
 
   def test_pet_leaves_pet_shop
-    @pet_shop.get_pet()
-    assert_equal(3,@pet_shop.number_of_pets())
+    @pet_shop.get_pet("Bulbasaur")
+    assert_equal(3,@pet_shop.number_of_pets_in_shop())
   end
 
   def test_get_pet_by_price
-    assert_equal("Charizard",@pet_shop.get_pet_by_price(@customer.cash))
+    pets = @pet_shop.get_pet_by_price(@customer.cash)
+    assert_equal(1, pets.count)
+  end
+
+  def test_get_pet_by_breed
+    pets = @pet_shop.get_pet_by_breed("Bulbasaur")
+    assert_equal(1, pets.count)
+
   end
 
   def test_pet_shop_total_cash
     assert_equal(0,@pet_shop.total)
+  end
+
+  def test_pet_shop_receieves_cash
+     @pet_shop.receives_cash(@pet_shop.get_pet.price("Bulbasaur"))
+     assert_equal(40, @pet_shop.total)
   end
 
 

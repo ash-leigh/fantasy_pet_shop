@@ -12,9 +12,9 @@ class Customer
     @pet_purchases.length()
   end
 
-  def take_pet (pet_shop)
-    pet = pet_shop.get_pet()
-    @pet_purchases << pet # we need to change this 
+  def take_pet(pet_shop, breed_choice)
+    pet = pet_shop.get_pet_by_breed(breed_choice)
+    @pet_purchases << pet 
   end
 
   def pays_for_pet(price)

@@ -1,6 +1,6 @@
 class PetShop
 
-  attr_reader :total
+  attr_reader :total, :get_pet
 
   def initialize( pets )
     @pets = pets
@@ -12,7 +12,7 @@ class PetShop
   end
 
   def get_pet(pet_sold)
-    @pets.delete(pet_sold)
+    @pets.delete_if {|pet| pet.breed == pet_sold}
   end
 
   def get_pet_by_price(cash)
@@ -25,12 +25,13 @@ class PetShop
   end
 
   def get_pet_by_breed(breed_choice)
-    chosen_pet_breed = []
+   pet = @pets.find {|pet| pet.breed == breed_choice}
+   return pet.breed
+  end
 
-    for pet in @pets
-      chosen_pet_breed << pet if pet.breed == breed_choice
-    end
-    return chosen_pet_breed
+  def get_price_of_chosen_pet(breed_choice)
+     pet = @pets.find {|pet| pet.breed == breed_choice}
+     return pet.price
   end
 
   def receives_cash(cash)

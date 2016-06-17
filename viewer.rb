@@ -43,9 +43,11 @@ class Viewer
     puts "Here are the Pokemon you can afford today;"
     
     for animal in afforable_animals 
+        puts "\n"
         puts animal.breed 
         puts animal.type
         puts "£#{animal.price}" 
+        puts "\n"
     end
     puts "Which one would you like to buy?"
     breed_choice = gets.chomp
@@ -53,12 +55,24 @@ class Viewer
   end
 
   def customer_buys_pet(breed_choice)
-    chosen_breed = @pet_shop.get_pet_by_breed(breed_choice)
-    @pet_shop.get_pet(@pet_shop.get_pet_by_breed(chosen_breed))
-    #puts "#{@pet_shop.number_of_pets_in_shop}"
-    #@pet_shop.get_pet
-    # @customer.take_pet(pet_shop)
-    # @pet_shop.receives_cash(cash)
+    @pet_shop.get_pet_by_breed(breed_choice)
+    @customer.take_pet(@pet_shop, breed_choice)
+    @pet_shop.get_price_of_chosen_pet(breed_choice)
+    @pet_shop.receives_cash((@pet_shop.get_price_of_chosen_pet(breed_choice)))
+    @customer.pays_for_pet(@pet_shop.get_price_of_chosen_pet(breed_choice))
+    @pet_shop.get_pet(breed_choice)
+    puts "\n"
+    puts "Thank you for shopping with us today we hope you enjoy your new Pokemon #{breed_choice}!"
+    puts "\n"
+    puts "RECEIPT"
+    puts "Customer name : #{@customer.name}"
+    puts "Purchased item : #{breed_choice}"
+    puts "\n"
+    puts "Total = £ #{@pet_shop.total}"
+    puts "Change = £ #{@customer.cash}"
+    puts "\n"
+    puts "Remaining Pokemon in shop: "
+    
   end
 
 end

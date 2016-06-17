@@ -31,13 +31,13 @@ class TestCustomer <Minitest:: Test
     assert_equal(0,@customer.pet_purchases())
   end
 
-  def test_customer_can_buy_pet
-    @customer.take_pet( @pet_shop )
-    assert_equal(1,@customer.pet_purchases())
+  def test_customer_takes_pet
+    @customer.take_pet(@pet_shop, "Bulbasaur")
+    assert_equal(1, @customer.pet_purchases())
   end
 
   def test_pays_for_pet
-    @customer.pays_for_pet(@pet_shop.get_pet.price)
+    @customer.pays_for_pet(@pet_shop.get_price_of_chosen_pet("Bulbasaur"))
     assert_equal(10, @customer.cash)
   end
 
